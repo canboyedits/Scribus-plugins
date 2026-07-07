@@ -1,0 +1,36 @@
+# Generated Scribus workspace folders
+/downloads/
+/src/
+/build/
+/install/
+/logs/
+/_archive/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.exe
+*.pdb
+*.ilk
+*.lib
+*.exp
+*.app
+
+# Temporary files
+*.tmp
+*.bak
+*.backup

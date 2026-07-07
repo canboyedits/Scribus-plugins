@@ -1,0 +1,19 @@
+name: repo-check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required plugin files
+        run: |
+          test -f plugin/codewindow/codewindow.cpp
+          test -f plugin/codewindow/codewindow.h
+          test -f plugin/codewindow/CMakeLists.txt
+          test -f scripts/sync-codewindow-plugin.sh
+          test -f scripts/mac-build-codewindow.sh
+          echo "Repository structure OK"

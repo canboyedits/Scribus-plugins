@@ -1,0 +1,29 @@
+include_directories(
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/scribus
+	${CMAKE_BINARY_DIR}
+)
+
+set(SCRIBUS_CODEWINDOW_PLUGIN "codewindow")
+
+set(CODEWINDOW_PLUGIN_SOURCES
+	codewindow.cpp
+	codewindow.h
+)
+
+add_library(${SCRIBUS_CODEWINDOW_PLUGIN} MODULE
+	${CODEWINDOW_PLUGIN_SOURCES}
+)
+
+target_link_libraries(${SCRIBUS_CODEWINDOW_PLUGIN}
+	${EXE_NAME}
+)
+
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_CODEWINDOW_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
+install(TARGETS ${SCRIBUS_CODEWINDOW_PLUGIN}
+	LIBRARY DESTINATION ${PLUGINDIR}
+	PERMISSIONS ${PLUGIN_PERMISSIONS}
+)
