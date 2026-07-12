@@ -1,0 +1,49 @@
+diff --git a/scribus/plugins/import/CMakeLists.txt b/scribus/plugins/import/CMakeLists.txt
+--- a/scribus/plugins/import/CMakeLists.txt
++++ b/scribus/plugins/import/CMakeLists.txt
+@@ -11,7 +11,8 @@ add_subdirectory(oodraw)
+ add_subdirectory(pages)
+ add_subdirectory(pct)
+ if(HAVE_POPPLER)
+-	add_subdirectory(pdf)
++	# Disabled for the pinned Windows production build: Poppler 26 API mismatch.
++	# add_subdirectory(pdf)
+ else()
+ 	add_subdirectory(ps)
+ endif()
+diff --git a/scribus/plugins/tools/CMakeLists.txt b/scribus/plugins/tools/CMakeLists.txt
+--- a/scribus/plugins/tools/CMakeLists.txt
++++ b/scribus/plugins/tools/CMakeLists.txt
+@@ -12,5 +12,11 @@ add_subdirectory(subdivide)
+ add_subdirectory(flattenpath)
+ add_subdirectory(smoothpath)
+-if (HAVE_HUNSPELL)
++
++set(WANT_HUNSPELL_PLUGIN_DEFAULT ON)
++if(WIN32)
++  set(WANT_HUNSPELL_PLUGIN_DEFAULT OFF)
++endif()
++option(WANT_HUNSPELL_PLUGIN "Build the Hunspell spell-check plugin" ${WANT_HUNSPELL_PLUGIN_DEFAULT})
++if(HAVE_HUNSPELL AND WANT_HUNSPELL_PLUGIN)
+   add_subdirectory(hunspellcheck)
+-endif (HAVE_HUNSPELL)
++endif()
+diff --git a/scribus/plugins/gettext/CMakeLists.txt b/scribus/plugins/gettext/CMakeLists.txt
+--- a/scribus/plugins/gettext/CMakeLists.txt
++++ b/scribus/plugins/gettext/CMakeLists.txt
+@@ -7,7 +7,14 @@ if(HAVE_XML)
+   add_subdirectory(odt2im)
+ endif()
+ add_subdirectory(pdbim)
+-add_subdirectory(rtfim)
++set(WANT_RTF_PLUGIN_DEFAULT ON)
++if(WIN32)
++  set(WANT_RTF_PLUGIN_DEFAULT OFF)
++endif()
++option(WANT_RTF_PLUGIN "Build the RTF importer plugin" ${WANT_RTF_PLUGIN_DEFAULT})
++if(WANT_RTF_PLUGIN)
++  add_subdirectory(rtfim)
++endif()
+ if(HAVE_XML)
+   add_subdirectory(sxwim)
+ endif()

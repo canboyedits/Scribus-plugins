@@ -1,0 +1,18 @@
+diff --git a/scribus/third_party/pgf/CMakeLists.txt b/scribus/third_party/pgf/CMakeLists.txt
+--- a/scribus/third_party/pgf/CMakeLists.txt
++++ b/scribus/third_party/pgf/CMakeLists.txt
+@@ -17,6 +17,14 @@ set(SCRIBUS_PGF_LIB_SOURCES
+ 
+ set(SCRIBUS_PGF_LIB "scribus_pgf_lib")
+ add_library(${SCRIBUS_PGF_LIB} STATIC ${SCRIBUS_PGF_LIB_SOURCES})
++
++# Bundled libpgf checks WIN32 and needs its Windows file-I/O platform layer.
++# MSVC defines _WIN32, while Scribus globally defines AVOID_WIN32_FILEIO.
++if(MSVC)
++  target_compile_definitions(${SCRIBUS_PGF_LIB} PRIVATE WIN32)
++  target_compile_options(${SCRIBUS_PGF_LIB} PRIVATE /UAVOID_WIN32_FILEIO)
++endif()
++
+ set_target_properties(${SCRIBUS_PGF_LIB}
+   PROPERTIES
+   COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP

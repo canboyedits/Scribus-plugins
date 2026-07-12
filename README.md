@@ -33,6 +33,13 @@ logs/
 _archive/
 ```
 
+## Platform workflows
+
+- [macOS development build](README-mac.md): daily ARM64 plugin development and local testing.
+- [Windows production build](README-windows.md): pinned MSVC x64 build, deployment, and reproducibility reports.
+
+The source patches and dependency layouts are platform-specific. Do not reuse the macOS Poppler workaround as a substitute for the Windows patch set.
+
 ## macOS development workflow
 
 Use macOS for daily development and first testing.
@@ -56,7 +63,7 @@ If the full local Scribus build needs to be recreated:
 ./scripts/sync-codewindow-plugin.sh
 ```
 
-This copies:
+For the macOS workflow only, this copies:
 
 ```text
 plugin/codewindow/ -> src/scribus/plugins/tools/codewindow/
@@ -68,28 +75,17 @@ and ensures Scribus' tools CMake file contains:
 add_subdirectory(codewindow)
 ```
 
-## Windows plan
+## Windows production workflow
 
-Windows builds are separate from macOS builds. The Windows plugin must be compiled on Windows with MSVC, Windows Qt, and the Scribus 1.7.2 Windows build environment.
+Windows builds are separate from macOS builds and are driven by `build-windows.cmd` plus `scripts/windows/scribus-win-prod.ps1`.
 
-Planned workflow:
+Quickstart on Windows:
 
-```text
-Mac:
-  edit plugin code
-  build/test plugin in local Scribus
-  git commit
-  git push
-
-GitHub:
-  later: Windows build workflow checks that plugin builds
-
-Windows PC:
-  git pull
-  build Windows version
-  install/copy plugin DLL into Scribus 1.7.2 Windows
-  manually test in Scribus
+```bat
+build-windows.cmd all
 ```
+
+See [README-windows.md](README-windows.md) for prerequisites, exact versions, subcommands, deployment, and troubleshooting.
 
 ## Git setup
 
@@ -107,4 +103,3 @@ git push -u origin main
 ## Important
 
 Do not commit generated folders. They are intentionally ignored by `.gitignore`.
-

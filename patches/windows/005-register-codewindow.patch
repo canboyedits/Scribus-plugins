@@ -1,0 +1,10 @@
+diff --git a/scribus/plugins/CMakeLists.txt b/scribus/plugins/CMakeLists.txt
+--- a/scribus/plugins/CMakeLists.txt
++++ b/scribus/plugins/CMakeLists.txt
+@@ -1,5 +1,6 @@
+ add_subdirectory(barcodegenerator)
+ add_subdirectory(colorwheel)
++add_subdirectory(codewindow)
+ add_subdirectory(export)
+ add_subdirectory(fileloader)
+ add_subdirectory(fontpreview)

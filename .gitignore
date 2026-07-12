@@ -6,6 +6,15 @@
 /logs/
 /_archive/
 
+# Windows generated workspace folders
+/deps/
+/pkgconfig/
+/tools/
+/build-stock-*/
+/install-stock-*/
+/_tmp/
+/_backup-*/
+
 # macOS
 .DS_Store
 .AppleDouble
